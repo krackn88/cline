@@ -45,6 +45,22 @@ Hello Cline! I need help setting up my Mac for software development. Could you p
     -   Data processing
     -   Machine learning projects
 
+## Verifying System Requirements
+
+Before you begin, ensure that your system meets the following requirements:
+
+-   **Operating System**: macOS, Windows, or Linux
+-   **Disk Space**: At least 10 GB of free space
+-   **Internet Connection**: Required for downloading and installing tools
+
+## Troubleshooting Common Errors
+
+If you encounter any issues during the installation process, here are some common errors and their solutions:
+
+-   **Permission Denied**: This error occurs when you don't have the necessary permissions to install a tool. Try running the command with `sudo` (e.g., `sudo npm install -g <package>`).
+-   **Command Not Found**: This error occurs when the command you're trying to run is not recognized. Ensure that the tool is installed and added to your system's PATH.
+-   **Network Issues**: If you have trouble downloading a tool, check your internet connection and try again. You can also try using a different network or a VPN.
+
 ## Notes
 
 -   The installation process is interactive - Cline will guide you through each step
