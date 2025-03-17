@@ -117,6 +117,27 @@ Otherwise, if you have not completed the task and do not need additional informa
 		const prettyPatchLines = lines.slice(4)
 		return prettyPatchLines.join("\n")
 	},
+
+	formatResponse: (errorType: string, errorMessage?: string) => {
+		switch (errorType) {
+			case "toolDenied":
+				return `The user denied this operation.`
+			case "toolError":
+				return `The tool execution failed with the following error:\n<error>\n${errorMessage}\n</error>`
+			case "clineIgnoreError":
+				return `Access to ${errorMessage} is blocked by the .clineignore file settings. You must try to continue in the task without using this file, or ask the user to update the .clineignore file.`
+			case "noToolsUsed":
+				return `[ERROR] You did not use a tool in your previous response! Please retry with a tool use.\n\n${toolUseInstructionsReminder}\n\n# Next Steps\n\nIf you have completed the user's task, use the attempt_completion tool.\nIf you require additional information from the user, use the ask_followup_question tool.\nOtherwise, if you have not completed the task and do not need additional information, then proceed with the next step of the task.\n(This is an automated message, so do not respond to it conversationally.)`
+			case "tooManyMistakes":
+				return `You seem to be having trouble proceeding. The user has provided the following feedback to help guide you:\n<feedback>\n${errorMessage}\n</feedback>`
+			case "missingToolParameterError":
+				return `Missing value for required parameter '${errorMessage}'. Please retry with complete response.\n\n${toolUseInstructionsReminder}`
+			case "invalidMcpToolArgumentError":
+				return `Invalid JSON argument used with ${errorMessage}. Please retry with a properly formatted JSON argument.`
+			default:
+				return `An unknown error occurred.`
+		}
+	},
 }
 
 // to avoid circular dependency
