@@ -238,7 +238,13 @@
 		"publish:marketplace:prerelease": "vsce publish --pre-release && ovsx publish --pre-release",
 		"prepare": "husky",
 		"changeset": "changeset",
-		"version-packages": "changeset version"
+		"version-packages": "changeset version",
+		"test:github": "npm run test -- --grep 'GitHubHandler'",
+		"test:huggingface": "npm run test -- --grep 'HuggingfaceHandler'",
+		"test:vastai": "npm run test -- --grep 'VastAiHandler'",
+		"debug:github": "node --inspect-brk ./node_modules/.bin/vscode-test --grep 'GitHubHandler'",
+		"debug:huggingface": "node --inspect-brk ./node_modules/.bin/vscode-test --grep 'HuggingfaceHandler'",
+		"debug:vastai": "node --inspect-brk ./node_modules/.bin/vscode-test --grep 'VastAiHandler'"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.12",

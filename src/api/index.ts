@@ -21,6 +21,9 @@ import { LiteLlmHandler } from "./providers/litellm"
 import { AskSageHandler } from "./providers/asksage"
 import { XAIHandler } from "./providers/xai"
 import { SambanovaHandler } from "./providers/sambanova"
+import { GitHubHandler } from "./providers/github"
+import { HuggingfaceHandler } from "./providers/huggingface"
+import { VastAiHandler } from "./providers/vastai"
 
 export interface ApiHandler {
 	createMessage(systemPrompt: string, messages: Anthropic.Messages.MessageParam[]): ApiStream
@@ -75,6 +78,12 @@ export function buildApiHandler(configuration: ApiConfiguration): ApiHandler {
 			return new XAIHandler(options)
 		case "sambanova":
 			return new SambanovaHandler(options)
+		case "github":
+			return new GitHubHandler(options)
+		case "huggingface":
+			return new HuggingfaceHandler(options)
+		case "vastai":
+			return new VastAiHandler(options)
 		default:
 			return new AnthropicHandler(options)
 	}

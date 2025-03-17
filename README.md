@@ -18,7 +18,7 @@ English | <a href="https://github.com/cline/cline/blob/main/locales/es/README.md
 <a href="https://discord.gg/cline" target="_blank"><strong>Discord</strong></a>
 </td>
 <td align="center">
-<a href="https://www.reddit.com/r/cline/" target="_blank"><strong>r/cline</strong></a>
+<a href="https://www.reddit.com/r/cline/" target="__blank"><strong>r/cline</strong></a>
 </td>
 <td align="center">
 <a href="https://github.com/cline/cline/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop" target="_blank"><strong>Feature Requests</strong></a>
@@ -136,6 +136,22 @@ For example, when working with a local web server, you can use 'Restore Workspac
 <!-- Transparent pixel to create line break after floating image -->
 
 <img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+
+## Integrations
+
+Cline now supports integration with GitHub, Huggingface, and Vast.ai. These integrations allow Cline to leverage the capabilities of these platforms to enhance your development workflow.
+
+### GitHub Integration
+
+Cline can interact with GitHub repositories to fetch data, create issues, and more. This integration allows Cline to seamlessly integrate with your GitHub projects and provide valuable insights and automation.
+
+### Huggingface Integration
+
+With the Huggingface integration, Cline can utilize the powerful models available on the Huggingface platform. This allows Cline to perform advanced natural language processing tasks and provide more accurate and context-aware responses.
+
+### Vast.ai Integration
+
+The Vast.ai integration enables Cline to leverage the vast computing resources available on the Vast.ai platform. This allows Cline to perform complex computations and tasks that require significant processing power.
 
 ## Contributing
 
