@@ -1,0 +1,30 @@
+aigateway/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                # GitHub Actions workflow
+├── bin/
+│   └── aigateway                 # Compiled binary
+├── lib/
+│   └── libaiprocessor.so         # Compiled Rust library
+├── logs/
+│   └── aigateway.log             # Log file
+├── rust/
+│   ├── src/
+│   │   └── lib.rs                # Rust source code
+│   ├── Cargo.toml                # Rust package definition
+│   └── target/                   # Rust build output
+├── src/
+│   ├── handlers/                 # HTTP handlers
+│   ├── providers/                # AI provider implementations
+│   └── rustbinding/              # Go bindings for Rust
+│       └── binding.go
+├── .gitignore                    # Git ignore file
+├── build.sh                      # Build script
+├── config.json                   # Configuration file
+├── docker-compose.yml            # Docker Compose definition
+├── Dockerfile                    # Docker build definition
+├── go.mod                        # Go module definition
+├── go.sum                        # Go dependencies checksums
+├── main.go                       # Main entry point
+├── Makefile                      # Build automation
+└── README.md                     # Project documentation
