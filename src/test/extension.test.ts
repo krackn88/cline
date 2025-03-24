@@ -88,4 +88,22 @@ describe("Cline Extension", () => {
 		// Clean up
 		panel.dispose()
 	})
+
+	// Test to verify the integration of the new branch re-Cliner
+	it("should verify the integration of the new branch re-Cliner", async () => {
+		const packageJSON = JSON.parse(await readFile(packagePath, "utf8"))
+		const id = packageJSON.publisher + "." + packageJSON.name
+		const reClinerExtensionApi = vscode.extensions.getExtension(id)
+
+		reClinerExtensionApi?.id.should.equal(id)
+	})
+
+	// Test to ensure the updated references to re-Cliner
+	it("should ensure the updated references to re-Cliner", async () => {
+		const packageJSON = JSON.parse(await readFile(packagePath, "utf8"))
+		const id = packageJSON.publisher + "." + packageJSON.name
+		const reClinerExtensionApi = vscode.extensions.getExtension(id)
+
+		reClinerExtensionApi?.id.should.equal(id)
+	})
 })

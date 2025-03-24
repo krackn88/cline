@@ -7,7 +7,7 @@ import { ApiStream, ApiStreamUsageChunk } from "../transform/stream"
 import axios from "axios"
 import { OpenRouterErrorResponse } from "./types"
 
-export class ClineHandler implements ApiHandler {
+export class ReClinerHandler implements ApiHandler {
 	private options: ApiHandlerOptions
 	private client: OpenAI
 	lastGenerationId?: string
@@ -15,8 +15,8 @@ export class ClineHandler implements ApiHandler {
 	constructor(options: ApiHandlerOptions) {
 		this.options = options
 		this.client = new OpenAI({
-			baseURL: "https://api.cline.bot/v1",
-			apiKey: this.options.clineApiKey || "",
+			baseURL: "https://api.re-cliner.bot/v1",
+			apiKey: this.options.reClinerApiKey || "",
 		})
 	}
 
@@ -39,10 +39,10 @@ export class ClineHandler implements ApiHandler {
 			// openrouter returns an error object instead of the openai sdk throwing an error
 			if ("error" in chunk) {
 				const error = chunk.error as OpenRouterErrorResponse["error"]
-				console.error(`Cline API Error: ${error?.code} - ${error?.message}`)
+				console.error(`ReCliner API Error: ${error?.code} - ${error?.message}`)
 				// Include metadata in the error message if available
 				const metadataStr = error.metadata ? `\nMetadata: ${JSON.stringify(error.metadata, null, 2)}` : ""
-				throw new Error(`Cline API Error ${error.code}: ${error.message}${metadataStr}`)
+				throw new Error(`ReCliner API Error ${error.code}: ${error.message}${metadataStr}`)
 			}
 
 			if (!this.lastGenerationId && chunk.id) {
@@ -90,9 +90,9 @@ export class ClineHandler implements ApiHandler {
 	async getApiStreamUsage(): Promise<ApiStreamUsageChunk | undefined> {
 		if (this.lastGenerationId) {
 			try {
-				const response = await axios.get(`https://api.cline.bot/v1/generation?id=${this.lastGenerationId}`, {
+				const response = await axios.get(`https://api.re-cliner.bot/v1/generation?id=${this.lastGenerationId}`, {
 					headers: {
-						Authorization: `Bearer ${this.options.clineApiKey}`,
+						Authorization: `Bearer ${this.options.reClinerApiKey}`,
 					},
 					timeout: 15_000, // this request hangs sometimes
 				})
@@ -106,7 +106,7 @@ export class ClineHandler implements ApiHandler {
 				}
 			} catch (error) {
 				// ignore if fails
-				console.error("Error fetching cline generation details:", error)
+				console.error("Error fetching re-cliner generation details:", error)
 			}
 		}
 		return undefined

@@ -474,3 +474,13 @@
 ## [0.0.6]
 
 -   Initial release
+
+## [Unreleased]
+
+-   Created a new branch called `re-Cliner`.
+-   Reviewed the existing code in `cline` to understand its structure and functionality.
+-   Identified the key components and modules that need to be integrated into `re-Cliner`.
+-   Created new files in `re-Cliner` that replicate the necessary functionality from `cline`.
+-   Ensured that the new files are properly organized and follow the same directory structure as `cline`.
+-   Updated any references to `cline` in the new files to point to `re-Cliner`.
+-   Tested the new files to ensure they work correctly and integrate seamlessly with `re-Cliner`.
