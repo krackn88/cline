@@ -1,0 +1,11 @@
+{
+  "claude_url": "https://claude.ai/chat",
+  "github_copilot_url": "https://github.com/features/copilot",
+  "browser_user_data_dir": "~/.browser-agent",
+  "screenshot_dir": "./screenshots",
+  "log_file": "./agent.log",
+  "headless": false,
+  "debug_mode": true,
+  "claude_login_required": true,
+  "github_login_required": true
+}

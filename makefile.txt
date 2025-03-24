@@ -1,0 +1,91 @@
+BINARY_NAME=aigateway
+VERSION=1.0.0
+BUILD_DIR=./bin
+SRC_DIR=./src
+MAIN_SRC=./main.go
+GO_VERSION=$(shell go version | grep -o "go[0-9]\.[0-9]*" | cut -c 3-)
+RUST_DIR=./rust
+DOCKER_IMAGE=aigateway
+
+.PHONY: all build clean test run install docker help rust watch
+
+all: check-deps build
+
+check-deps:
+	@echo "Checking dependencies..."
+	@go version >/dev/null 2>&1 || (echo "Go is not installed. Please install Go 1.16 or later" && exit 1)
+	@if [ -d "$(RUST_DIR)" ]; then \
+		rustc --version >/dev/null 2>&1 || (echo "Rust is not installed. Please install Rust" && exit 1); \
+	fi
+
+build: check-deps build-go build-rust
+
+build-go:
+	@echo "Building Go binary..."
+	@mkdir -p $(BUILD_DIR)
+	@go build -o $(BUILD_DIR)/$(BINARY_NAME) $(MAIN_SRC)
+	@echo "Build completed: $(BUILD_DIR)/$(BINARY_NAME)"
+
+build-rust:
+	@if [ -d "$(RUST_DIR)" ]; then \
+		echo "Building Rust components..."; \
+		cd $(RUST_DIR) && cargo build --release && \
+		cp target/release/libaiprocessor.* ../$(BUILD_DIR)/; \
+	else \
+		echo "Skipping Rust build (no Rust directory found)"; \
+	fi
+
+test:
+	@echo "Running tests..."
+	@go test -v ./...
+
+run: build
+	@echo "Running $(BINARY_NAME)..."
+	@$(BUILD_DIR)/$(BINARY_NAME)
+
+clean:
+	@echo "Cleaning up..."
+	@rm -rf $(BUILD_DIR)/*
+	@if [ -d "$(RUST_DIR)" ]; then \
+		cd $(RUST_DIR) && cargo clean; \
+	fi
+	@go clean -cache -testcache -modcache
+
+install:
+	@echo "Installing binary to /usr/local/bin/$(BINARY_NAME)..."
+	@cp $(BUILD_DIR)/$(BINARY_NAME) /usr/local/bin/
+	@echo "Installation complete!"
+
+docker:
+	@echo "Building Docker image..."
+	@docker build -t $(DOCKER_IMAGE):$(VERSION) .
+	@echo "Docker image built: $(DOCKER_IMAGE):$(VERSION)"
+
+watch:
+	@if command -v entr >/dev/null 2>&1; then \
+		echo "Starting watch mode... (Ctrl+C to stop)"; \
+		find . -name "*.go" | entr -r make run; \
+	else \
+		echo "Watch mode requires 'entr' utility. Please install it first."; \
+	fi
+
+ci-build: check-deps
+	@echo "Running CI build..."
+	@go mod tidy
+	@go build -v ./...
+	@go test -v ./...
+
+help:
+	@echo "Available targets:"
+	@echo "  all        - Build everything (default)"
+	@echo "  build      - Build Go and Rust components"
+	@echo "  build-go   - Build only Go binary"
+	@echo "  build-rust - Build only Rust components"
+	@echo "  test       - Run tests"
+	@echo "  run        - Build and run the application"
+	@echo "  clean      - Remove built files"
+	@echo "  install    - Install binary to /usr/local/bin"
+	@echo "  docker     - Build Docker image"
+	@echo "  watch      - Run in watch mode (rebuild on file changes)"
+	@echo "  ci-build   - Run CI build process"
+	@echo "  help       - Show this help message"
