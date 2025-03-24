@@ -188,3 +188,42 @@ To contribute to the project, start with our [Contributing Guide](CONTRIBUTING.m
 ## License
 
 [Apache 2.0 © 2025 Cline Bot Inc.](./LICENSE)
+
+## Building the Project
+
+### Using `build-script.sh`
+
+To build the project using the provided build script, follow these steps:
+
+1. Ensure you have Go 1.18 or newer installed on your system.
+2. Open a terminal and navigate to the root directory of the project.
+3. Run the build script by executing `./build-script.sh`.
+
+This script will check for Go installation, create necessary directories, install dependencies, and build the application. If the build is successful, it will create a binary named `ai-agent`.
+
+### Using `makefile.txt`
+
+To build the project using the provided Makefile, follow these steps:
+
+1. Ensure you have Go and Rust installed on your system.
+2. Open a terminal and navigate to the root directory of the project.
+3. Run `make build` to build both Go and Rust components.
+
+This will create the necessary binaries in the `bin` directory.
+
+### Using `dockerfile.txt`
+
+To build the project using Docker, follow these steps:
+
+1. Ensure you have Docker installed on your system.
+2. Open a terminal and navigate to the root directory of the project.
+3. Build the Docker image by running the following command:
+   ```sh
+   docker build -t yourusername/aigateway .
+   ```
+4. Once the build is complete, you can run the Docker container using the following command:
+   ```sh
+   docker run -it yourusername/aigateway
+   ```
+
+This will create a Docker image that includes the necessary binaries and dependencies for the project. The `dockerfile.txt` handles the build process for both Go and Rust components, ensuring that the final image contains everything needed to run the application.
